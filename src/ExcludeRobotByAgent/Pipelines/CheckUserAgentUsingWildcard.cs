@@ -10,6 +10,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
     public class CheckUserAgentUsingWildcard : ExcludeRobotsProcessor
     {
         private readonly BaseLog _log;
+        private static bool _loggedMissingConfig { get; set; } = false;
 
         public CheckUserAgentUsingWildcard(BaseLog log)
         {
@@ -30,7 +31,11 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
             if (string.IsNullOrWhiteSpace(exclusionValuesSetting))
             {
-                Log.Debug($"{typeof(CheckUserAgent).FullName}.{nameof(CheckUserAgent)} => No config value found in {valueSettingName}", this);
+                if (!_loggedMissingConfig)
+                {
+                    Log.Warn($"{typeof(CheckUserAgent).FullName}.{nameof(CheckUserAgent)} => No config value found in {valueSettingName}", this);
+                    _loggedMissingConfig = true;
+                }
                 return;
             }
 

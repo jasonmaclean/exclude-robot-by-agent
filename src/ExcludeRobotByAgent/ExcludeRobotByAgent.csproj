@@ -110,7 +110,6 @@
     <Reference Include="System.Xml.ReaderWriter" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\SitecoreFundamentals.ExludeRobotsByAgent.dll.config" />
     <None Include="packages.config" />
     <None Include="Web.config" />
   </ItemGroup>
@@ -120,8 +119,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Modules\SitecoreFundamentals\ExludeRobotsByAgent.config" />
-    <Content Include="bin\SitecoreFundamentals.ExludeRobotsByAgent.dll" />
-    <Content Include="bin\SitecoreFundamentals.ExludeRobotsByAgent.pdb" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
