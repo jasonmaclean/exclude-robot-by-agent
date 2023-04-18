@@ -1,5 +1,6 @@
 ﻿using Sitecore.Abstractions;
 using Sitecore.Analytics.Pipelines.ExcludeRobots;
+using Sitecore.Configuration;
 using Sitecore.Diagnostics;
 using Sitecore.Framework.Conditions;
 using System;
@@ -10,7 +11,9 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
     public class CheckUserAgentUsingWildcard : ExcludeRobotsProcessor
     {
         private readonly BaseLog _log;
-        private static bool _loggedMissingConfig { get; set; } = false;
+        private static bool _missingConfigValues { get; set; } = false;
+        private static DateTime _hitsLoggingTimer { get; set; } 
+        private static int _hitsLogged { get; set; } = 0;
 
         public CheckUserAgentUsingWildcard(BaseLog log)
         {
@@ -20,6 +23,9 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
         public override void Process(ExcludeRobotsArgs args)
         {
+            if (_missingConfigValues)
+                return;
+
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
 
@@ -31,10 +37,10 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
             if (string.IsNullOrWhiteSpace(exclusionValuesSetting))
             {
-                if (!_loggedMissingConfig)
+                if (!_missingConfigValues)
                 {
-                    Log.Warn($"{typeof(CheckUserAgent).FullName}.{nameof(CheckUserAgent)} => No config value found in {valueSettingName}", this);
-                    _loggedMissingConfig = true;
+                    Log.Warn($"{Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.LogPrefix")} No config value found in {valueSettingName}", this);
+                    _missingConfigValues = true;
                 }
                 return;
             }
@@ -54,19 +60,38 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
             {
                 args.IsInExcludeList = true;
 
-                Log.Debug($"{typeof(CheckUserAgent).FullName}.{nameof(CheckUserAgent)} => User Agent is shorter than the configured limit of {minimumAgentLength}", this);
+                Log.Debug($"{Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.LogPrefix")} User Agent is shorter than the configured limit of {minimumAgentLength}", this);
 
                 return;
             }
 
-            var exclusionVaue = exclusionValues.FirstOrDefault(x => userAgent.Contains(x));
-            if (exclusionVaue != null)
+            var exclusionValue = exclusionValues.FirstOrDefault(x => userAgent.Contains(x));
+            if (exclusionValue != null)
             {
                 args.IsInExcludeList = true;
 
-                Log.Debug($"{typeof(CheckUserAgent).FullName}.{nameof(CheckUserAgent)} => User Agent contains the value  {exclusionVaue}", this);
+                Log.Debug($"{Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.LogPrefix")} User Agent contains the value {exclusionValue}", this);
+
+                StoreHitForLogging();
 
                 return;
+            }
+        }
+
+        private void StoreHitForLogging()
+        {
+            _hitsLogged++;
+
+            if (_hitsLoggingTimer == DateTime.MinValue)
+                _hitsLoggingTimer = DateTime.Now;
+
+            var minutesUntilLogDump = Sitecore.Configuration.Settings.GetIntSetting("SitecoreFundamentals.ExludeRobotsByAgent.MinutesUntilLogDump", 30);
+        
+            if (_hitsLoggingTimer.AddMinutes(minutesUntilLogDump) < DateTime.Now)
+            {
+                Log.Info($"{Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.LogPrefix")} {_hitsLogged} requests have been blocked since {_hitsLoggingTimer.ToString("yyyy-MM-dd h:mm tt")}", this);
+                _hitsLoggingTimer = DateTime.Now;
+                _hitsLogged = 0;
             }
         }
     }
