@@ -143,11 +143,11 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
         private static void SendEmailNotification()
         {
-            var masterDb = Factory.GetDatabase("master");
+            var contextDb = Factory.GetDatabase("web");
 
-            var settingsItem = masterDb.GetItem(Constants.ItemIDs.Settings);
+            var settingsItem = contextDb.GetItem(Constants.ItemIDs.Settings);
 
-            if (settingsItem.Fields[Constants.Templates.Settings.Fields.SendEmailNotifications].Value != "1")
+            if (settingsItem == null || settingsItem.Fields[Constants.Templates.Settings.Fields.SendEmailNotifications].Value != "1")
                 return;
 
             var emailFrom = settingsItem.Fields[Constants.Templates.Settings.Fields.EmailFrom].Value;

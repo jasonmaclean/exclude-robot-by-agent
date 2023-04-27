@@ -12,22 +12,29 @@ templatekey: Exclude Robots by Agent Settings
 ----version----
 language: en
 version: 1
-revision: 3b3cf79e-002c-49da-b932-fb246f34729f
+revision: e55e93c2-651b-415a-b353-93c69cc0c524
+
+----field----
+field: {95B8519C-B33A-49D6-A3AB-6A2A3EF3806C}
+name: EmailFrom
+key: emailfrom
+content-length: 0
+
 
 ----field----
 field: {12E6D691-4A1E-47C9-BC70-E71E123F2034}
 name: EmailTo
 key: emailto
-content-length: 23
+content-length: 0
 
-jasongmaclean@gmail.com
+
 ----field----
 field: {644D0506-D82A-4679-8557-CC6359797ED9}
 name: EmailBcc
 key: emailbcc
-content-length: 19
+content-length: 0
 
-nothing@nothing.com
+
 ----field----
 field: {DFDD008A-2C1B-4208-B596-35C7F3C4AE86}
 name: Subject
@@ -65,14 +72,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-3b3cf79e-002c-49da-b932-fb246f34729f
+e55e93c2-651b-415a-b353-93c69cc0c524
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20230427T161554Z
+20230427T194713Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
