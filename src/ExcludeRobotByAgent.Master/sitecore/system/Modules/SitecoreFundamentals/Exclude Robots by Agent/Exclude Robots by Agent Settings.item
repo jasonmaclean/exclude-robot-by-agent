@@ -1,0 +1,82 @@
+----item----
+version: 1
+id: {353A1C6B-5833-4848-945E-F3BECC529385}
+database: master
+path: /sitecore/system/Modules/SitecoreFundamentals/Exclude Robots by Agent/Exclude Robots by Agent Settings
+parent: {C2478065-DD44-4288-922C-6306A5E17A7B}
+name: Exclude Robots by Agent Settings
+master: {00000000-0000-0000-0000-000000000000}
+template: {88D18882-FC22-412C-82D0-3DBA7AFC6209}
+templatekey: Exclude Robots by Agent Settings
+
+----version----
+language: en
+version: 1
+revision: 3b3cf79e-002c-49da-b932-fb246f34729f
+
+----field----
+field: {12E6D691-4A1E-47C9-BC70-E71E123F2034}
+name: EmailTo
+key: emailto
+content-length: 23
+
+jasongmaclean@gmail.com
+----field----
+field: {644D0506-D82A-4679-8557-CC6359797ED9}
+name: EmailBcc
+key: emailbcc
+content-length: 19
+
+nothing@nothing.com
+----field----
+field: {DFDD008A-2C1B-4208-B596-35C7F3C4AE86}
+name: Subject
+key: subject
+content-length: 38
+
+ Exclude Robots by Agent Module Report
+----field----
+field: {27BF67B4-DD07-4932-B1E1-18604A959B98}
+name: BeginningOfEmail
+key: beginningofemail
+content-length: 489
+
+<p>The follow requests were excluded from collection into xDB by the&nbsp;Exclude Robots by Agent Module. This module looks for certain keywords your team has configured and checks for then in the User Agent of the request. </p>
+<p>The records below were collected starting at: {LogDumpTimerStarted}, and email them to you after {MinutesUntilLogDump} minutes. As this list can get very large, it is configured to capture up to {SampleRecordsPerLogDump} records at a time.</p>
+<p>&nbsp;</p>
+----field----
+field: {4A92D442-E244-4E52-9DE9-B5A21A9E7C09}
+name: EndOfEmail
+key: endofemail
+content-length: 266
+
+<p>&nbsp;</p>
+<p>See&nbsp;<a href="https://www.sitecorefundamentals.com/introducing-the-exclude-robots-by-agent-module">www.sitecorefundamentals.com/introducing-the-exclude-robots-by-agent-module</a> for more information about this email and how to configure it.</p>
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20230421T193301Z
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+3b3cf79e-002c-49da-b932-fb246f34729f
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20230427T161554Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin

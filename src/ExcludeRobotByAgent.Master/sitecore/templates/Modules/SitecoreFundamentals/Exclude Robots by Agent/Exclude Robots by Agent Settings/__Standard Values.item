@@ -1,0 +1,88 @@
+----item----
+version: 1
+id: {0BBD9B8B-E0DB-4D37-A5DB-6511BBEE1CEA}
+database: master
+path: /sitecore/templates/Modules/SitecoreFundamentals/Exclude Robots by Agent/Exclude Robots by Agent Settings/__Standard Values
+parent: {88D18882-FC22-412C-82D0-3DBA7AFC6209}
+name: __Standard Values
+master: {00000000-0000-0000-0000-000000000000}
+template: {88D18882-FC22-412C-82D0-3DBA7AFC6209}
+templatekey: Exclude Robots by Agent Settings
+
+----version----
+language: en
+version: 1
+revision: beb38f62-3482-4229-99ac-3a206bd27d46
+
+----field----
+field: {9275F1C0-A874-4BA3-9776-4F6B61FAE34A}
+name: SendEmailNotifications
+key: sendemailnotifications
+content-length: 1
+
+1
+----field----
+field: {95B8519C-B33A-49D6-A3AB-6A2A3EF3806C}
+name: EmailFrom
+key: emailfrom
+content-length: 33
+
+no-reply@sitecorefundamentals.com
+----field----
+field: {DFDD008A-2C1B-4208-B596-35C7F3C4AE86}
+name: Subject
+key: subject
+content-length: 39
+
+Dictionary items have been auto-created
+----field----
+field: {27BF67B4-DD07-4932-B1E1-18604A959B98}
+name: BeginningOfEmail
+key: beginningofemail
+content-length: 77
+
+<p>&nbsp;{LogDumpTimerStarted}</p>
+<p>&nbsp;</p>
+<p>{MinutesUntilLogDump}</p>
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20220909T120856Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+beb38f62-3482-4229-99ac-3a206bd27d46
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20230421T193344Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
