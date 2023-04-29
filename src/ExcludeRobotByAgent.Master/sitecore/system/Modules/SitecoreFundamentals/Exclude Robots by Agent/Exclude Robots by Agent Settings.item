@@ -12,7 +12,7 @@ templatekey: Exclude Robots by Agent Settings
 ----version----
 language: en
 version: 1
-revision: e55e93c2-651b-415a-b353-93c69cc0c524
+revision: 27f12330-e803-4d32-b713-184a898a7490
 
 ----field----
 field: {95B8519C-B33A-49D6-A3AB-6A2A3EF3806C}
@@ -46,10 +46,10 @@ content-length: 38
 field: {27BF67B4-DD07-4932-B1E1-18604A959B98}
 name: BeginningOfEmail
 key: beginningofemail
-content-length: 489
+content-length: 430
 
 <p>The follow requests were excluded from collection into xDB by the&nbsp;Exclude Robots by Agent Module. This module looks for certain keywords your team has configured and checks for then in the User Agent of the request. </p>
-<p>The records below were collected starting at: {LogDumpTimerStarted}, and email them to you after {MinutesUntilLogDump} minutes. As this list can get very large, it is configured to capture up to {SampleRecordsPerLogDump} records at a time.</p>
+<p>The records below were collected starting at: {LogDumpTimerStarted}. As this list can get very large, it is configured to capture up to {SampleRecordsPerLogDump} records at a time.</p>
 <p>&nbsp;</p>
 ----field----
 field: {4A92D442-E244-4E52-9DE9-B5A21A9E7C09}
@@ -72,14 +72,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-e55e93c2-651b-415a-b353-93c69cc0c524
+27f12330-e803-4d32-b713-184a898a7490
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20230427T194713Z
+20230429T132038Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

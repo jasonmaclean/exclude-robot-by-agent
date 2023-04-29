@@ -10,7 +10,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Tasks
         {
             Log.Info($"{Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.LogPrefix")} Checking to see if email should be sent.", this);
 
-            CheckUserAgentUsingWildcard.CheckIfEmailShouldBeSentAndListReset();
+            CheckUserAgentUsingWildcard.CheckIfEmailShouldBeSentAndResetList();
         }
     }
 }

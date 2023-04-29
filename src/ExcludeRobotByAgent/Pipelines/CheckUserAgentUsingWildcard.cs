@@ -50,7 +50,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
                 return;
 
             var valueSettingName = "SitecoreFundamentals.ExludeRobotsByAgent.ExclusionValues";
-            var exclusionValuesSetting = Sitecore.Configuration.Settings.GetSetting(valueSettingName);
+            var exclusionValuesSetting = Settings.GetSetting(valueSettingName);
 
             if (string.IsNullOrWhiteSpace(exclusionValuesSetting) && !_missingConfigValues)
             {
@@ -70,19 +70,6 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
             var userAgent = context.Request.UserAgent.ToLower();
 
-            var minimumAgentLength = Settings.GetIntSetting("SitecoreFundamentals.ExludeRobotsByAgent.MinimumAgentLength", 255);
-
-            if (userAgent.Length < minimumAgentLength)
-            {
-                args.IsInExcludeList = true;
-
-                Log.Debug($"{LogPrefix} User Agent is shorter than the configured limit of {minimumAgentLength}", this);
-
-                StoreHitForLogging(context);
-
-                return;
-            }
-
             var exclusionValue = exclusionValues.FirstOrDefault(x => userAgent.Contains(x));
             if (exclusionValue != null)
             {
@@ -98,7 +85,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
         private void StoreHitForLogging(HttpContext context)
         {
-            if (_blockedUserAgents.Count() < Settings.GetIntSetting("SitecoreFundamentals.ExludeRobotsByAgent.SampleRecordsPerLogDump", 200))
+            if (_blockedUserAgents.Count() < Settings.GetIntSetting("SitecoreFundamentals.ExludeRobotsByAgent.SampleRecordsPerLogDump", 60))
             {
                 _blockedUserAgents.Add(new Models.BlockedUserAgent()
                 {
@@ -111,17 +98,13 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
             if (_hitsLoggingTimer == DateTime.MinValue)
                 _hitsLoggingTimer = DateTime.Now;
-
-            CheckIfEmailShouldBeSentAndListReset();
         }
 
-        internal static void CheckIfEmailShouldBeSentAndListReset()
+        internal static void CheckIfEmailShouldBeSentAndResetList()
         {
             CheckBlockedUserAgentList();
 
-            var minutesUntilLogDump = Settings.GetIntSetting("SitecoreFundamentals.ExludeRobotsByAgent.MinutesUntilLogDump", 30);
-
-            if (_hitsLoggingTimer.AddMinutes(minutesUntilLogDump) < DateTime.Now && _blockedUserAgents.Any())
+            if (_blockedUserAgents.Any())
             {
                 Log.Info($"{LogPrefix} {_blockedUserAgents.Count()} requests have been blocked since {_hitsLoggingTimer.ToString(Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.DateTimeFormat"))}", "CheckIfEmailShouldBeSentAndListReset");
 
@@ -221,7 +204,6 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
             message.Body = $"{beginningOfEmail}{sb}{endOfEmail}"
                 .Replace("{LogDumpTimerStarted}", _hitsLoggingTimer.ToString(Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.DateTimeFormat")))
-                .Replace("{MinutesUntilLogDump}", Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.MinutesUntilLogDump"))
                 .Replace("{SampleRecordsPerLogDump}", Settings.GetIntSetting("SitecoreFundamentals.ExludeRobotsByAgent.SampleRecordsPerLogDump", 200).ToString());
 
             message.IsBodyHtml = true;

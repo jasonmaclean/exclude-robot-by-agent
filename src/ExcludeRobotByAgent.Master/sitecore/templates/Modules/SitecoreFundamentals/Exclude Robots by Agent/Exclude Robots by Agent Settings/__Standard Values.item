@@ -12,7 +12,7 @@ templatekey: Exclude Robots by Agent Settings
 ----version----
 language: en
 version: 1
-revision: beb38f62-3482-4229-99ac-3a206bd27d46
+revision: 65c51f6c-4a32-427e-8f7f-b45c746629a4
 
 ----field----
 field: {9275F1C0-A874-4BA3-9776-4F6B61FAE34A}
@@ -32,18 +32,26 @@ no-reply@sitecorefundamentals.com
 field: {DFDD008A-2C1B-4208-B596-35C7F3C4AE86}
 name: Subject
 key: subject
-content-length: 39
+content-length: 38
 
-Dictionary items have been auto-created
+ Exclude Robots by Agent Module Report
 ----field----
 field: {27BF67B4-DD07-4932-B1E1-18604A959B98}
 name: BeginningOfEmail
 key: beginningofemail
-content-length: 77
+content-length: 489
 
-<p>&nbsp;{LogDumpTimerStarted}</p>
+<p>The follow requests were excluded from collection into xDB by the&nbsp;Exclude Robots by Agent Module. This module looks for certain keywords your team has configured and checks for then in the User Agent of the request. </p>
+<p>The records below were collected starting at: {LogDumpTimerStarted}, and email them to you after {MinutesUntilLogDump} minutes. As this list can get very large, it is configured to capture up to {SampleRecordsPerLogDump} records at a time.</p>
 <p>&nbsp;</p>
-<p>{MinutesUntilLogDump}</p>
+----field----
+field: {4A92D442-E244-4E52-9DE9-B5A21A9E7C09}
+name: EndOfEmail
+key: endofemail
+content-length: 266
+
+<p>&nbsp;</p>
+<p>See&nbsp;<a href="https://www.sitecorefundamentals.com/introducing-the-exclude-robots-by-agent-module">www.sitecorefundamentals.com/introducing-the-exclude-robots-by-agent-module</a> for more information about this email and how to configure it.</p>
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -71,14 +79,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-beb38f62-3482-4229-99ac-3a206bd27d46
+65c51f6c-4a32-427e-8f7f-b45c746629a4
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20230421T193344Z
+20230429T131459Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
