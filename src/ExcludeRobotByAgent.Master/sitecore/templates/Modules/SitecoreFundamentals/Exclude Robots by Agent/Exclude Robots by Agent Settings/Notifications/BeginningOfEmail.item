@@ -26,7 +26,7 @@ content-length: 3
 ----version----
 language: en
 version: 1
-revision: 8493b9aa-e168-4819-9164-ca6d141856f3
+revision: 9e5ba27a-159f-4e8e-b7b4-e059f26260f5
 
 ----field----
 field: {19A69332-A23E-4E70-8D16-B2640CB24CC8}
@@ -46,16 +46,16 @@ Beginning of Email
 field: {577F1689-7DE4-4AD2-A15F-7FDC1759285F}
 name: __Long description
 key: __long description
-content-length: 91
+content-length: 95
 
-Tokens available for this portion of the email: {MinutesUntilLogDump} {LogDumpTimerStarted}
+Tokens available for this portion of the email: {SampleRecordsPerLogDump} {LogDumpTimerStarted}
 ----field----
 field: {9541E67D-CE8C-4225-803D-33F7F29F09EF}
 name: __Short description
 key: __short description
-content-length: 91
+content-length: 95
 
-Tokens available for this portion of the email: {MinutesUntilLogDump} {LogDumpTimerStarted}
+Tokens available for this portion of the email: {SampleRecordsPerLogDump} {LogDumpTimerStarted}
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -83,14 +83,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-8493b9aa-e168-4819-9164-ca6d141856f3
+9e5ba27a-159f-4e8e-b7b4-e059f26260f5
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20230421T193142Z
+20230504T170455Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
