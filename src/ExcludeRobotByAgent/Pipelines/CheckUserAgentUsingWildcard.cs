@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.ServiceModel.Configuration;
 using System.Text;
 using System.Web;
 
@@ -17,6 +18,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
     {
         private readonly BaseLog _log;
         private static List<Models.BlockedUserAgent> _blockedUserAgents { get; set; }
+        private static List<string> _blockedIps { get; set; } = new List<string>();
         private static bool _missingConfigValues { get; set; } = false;
         private static DateTime _hitsLoggingTimer { get; set; }
         
@@ -61,7 +63,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
             CheckBlockedUserAgentList();
 
-            var exclusionValues = exclusionValuesSetting.ToLower().Split(',');
+            var exclusionValues = exclusionValuesSetting.ToLower().Split(',').Select(x => x.Trim()).ToList();
 
             var context = HttpContext.Current;
 
@@ -69,6 +71,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
                 return;
 
             var userAgent = context.Request.UserAgent.ToLower();
+            var ip = GetIP(context);
 
             var exclusionValue = exclusionValues.FirstOrDefault(x => userAgent.Contains(x));
             if (exclusionValue != null)
@@ -77,20 +80,37 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
                 Log.Debug($"{LogPrefix} User Agent contains the value {exclusionValue.Trim()}", this);
 
-                StoreHitForLogging(context);
+                StoreHitForLogging(context, ip, false);
+
+                if (!_blockedIps.Any(x => x.Equals(ip)))
+                    _blockedIps.Add(ip);
+
+                return;
+            }
+            else if (Settings.GetBoolSetting("SitecoreFundamentals.ExludeRobotsByAgent.BlockWithIp", true) && _blockedIps.Any(x => x.Equals(ip)))
+            {
+                args.IsInExcludeList = true;
+
+                Log.Debug($"{LogPrefix} IP address {ip} was previously blocked due to its User Agent", this);
+
+                StoreHitForLogging(context, ip, true);
 
                 return;
             }
         }
 
-        private void StoreHitForLogging(HttpContext context)
+        private void StoreHitForLogging(HttpContext context, string ip, bool ipBlocked)
         {
             if (_blockedUserAgents.Count() < Settings.GetIntSetting("SitecoreFundamentals.ExludeRobotsByAgent.SampleRecordsPerLogDump", 60))
             {
+                var userAgent = context.Request.UserAgent;
+                if (ipBlocked)
+                    userAgent = $"{context.Request.UserAgent} - iP address {ip} was previously blocked due to its User Agent";
+
                 _blockedUserAgents.Add(new Models.BlockedUserAgent()
                 {
-                    Ip = GetIP(context),
-                    UserAgent = context.Request.UserAgent,
+                    Ip = ip,
+                    UserAgent = userAgent,
                     Url = context.Request.Url.AbsoluteUri,
                     DateTime = DateTime.Now
                 });
