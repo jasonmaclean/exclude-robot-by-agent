@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SitecoreFundamentals.ExludeRobotsByAgent.Models
+namespace SitecoreFundamentals.ExcludeRobotsByAgent.Models
 {
     public class BlockedUserAgent
     {

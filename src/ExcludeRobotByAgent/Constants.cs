@@ -1,6 +1,6 @@
 ﻿using Sitecore.Data;
 
-namespace SitecoreFundamentals.ExludeRobotsByAgent
+namespace SitecoreFundamentals.ExcludeRobotsByAgent
 {
     internal struct Constants
     {

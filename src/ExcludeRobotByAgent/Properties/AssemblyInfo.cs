@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SitecoreFundamentals.ExludeRobotsByAgent")]
+[assembly: AssemblyTitle("SitecoreFundamentals.ExcludeRobotsByAgent")]
 [assembly: AssemblyDescription("Allows you to exclude a visit to your Sitecore site by using agent wildcard instead of exact matches, which is also useful for SQL injection blocking as well.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MNP Digital Services division")]
-[assembly: AssemblyProduct("SitecoreFundamentals.ExludeRobotsByAgent")]
+[assembly: AssemblyProduct("SitecoreFundamentals.ExcludeRobotsByAgent")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

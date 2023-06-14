@@ -12,7 +12,7 @@ using System.ServiceModel.Configuration;
 using System.Text;
 using System.Web;
 
-namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
+namespace SitecoreFundamentals.ExcludeRobotsByAgent.Pipelines.ExcludeRobots
 {
     public class CheckUserAgentUsingWildcard : ExcludeRobotsProcessor
     {
@@ -28,7 +28,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
             {
                 if (string.IsNullOrWhiteSpace(_logPrefix))
                 {
-                    _logPrefix = Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.LogPrefix");
+                    _logPrefix = Settings.GetSetting("SitecoreFundamentals.ExcludeRobotsByAgent.LogPrefix");
                 }
                 return _logPrefix;
             }
@@ -51,7 +51,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
             if (args.IsInExcludeList)
                 return;
 
-            var valueSettingName = "SitecoreFundamentals.ExludeRobotsByAgent.ExclusionValues";
+            var valueSettingName = "SitecoreFundamentals.ExcludeRobotsByAgent.ExclusionValues";
             var exclusionValuesSetting = Settings.GetSetting(valueSettingName);
 
             if (string.IsNullOrWhiteSpace(exclusionValuesSetting) && !_missingConfigValues)
@@ -87,7 +87,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
                 return;
             }
-            else if (Settings.GetBoolSetting("SitecoreFundamentals.ExludeRobotsByAgent.BlockWithIp", true) && _blockedIps.Any(x => x.Equals(ip)))
+            else if (Settings.GetBoolSetting("SitecoreFundamentals.ExcludeRobotsByAgent.BlockWithIp", true) && _blockedIps.Any(x => x.Equals(ip)))
             {
                 args.IsInExcludeList = true;
 
@@ -101,7 +101,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
         private void StoreHitForLogging(HttpContext context, string ip, bool ipBlocked)
         {
-            if (_blockedUserAgents.Count() < Settings.GetIntSetting("SitecoreFundamentals.ExludeRobotsByAgent.SampleRecordsPerLogDump", 60))
+            if (_blockedUserAgents.Count() < Settings.GetIntSetting("SitecoreFundamentals.ExcludeRobotsByAgent.SampleRecordsPerLogDump", 60))
             {
                 var userAgent = context.Request.UserAgent;
                 if (ipBlocked)
@@ -126,7 +126,7 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
 
             if (_blockedUserAgents.Any())
             {
-                Log.Info($"{LogPrefix} {_blockedUserAgents.Count()} requests have been blocked since {_hitsLoggingTimer.ToString(Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.DateTimeFormat"))}", "CheckIfEmailShouldBeSentAndListReset");
+                Log.Info($"{LogPrefix} {_blockedUserAgents.Count()} requests have been blocked since {_hitsLoggingTimer.ToString(Settings.GetSetting("SitecoreFundamentals.ExcludeRobotsByAgent.DateTimeFormat"))}", "CheckIfEmailShouldBeSentAndListReset");
 
                 SendEmailNotification();
 
@@ -167,8 +167,8 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
             }
 
             var sb = new StringBuilder();
-            var sampleFormat = Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.SampleRecordFormat");
-            var dateTimeFormat = Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.DateTimeFormat");
+            var sampleFormat = Settings.GetSetting("SitecoreFundamentals.ExcludeRobotsByAgent.SampleRecordFormat");
+            var dateTimeFormat = Settings.GetSetting("SitecoreFundamentals.ExcludeRobotsByAgent.DateTimeFormat");
 
             foreach (var blockedUserAgent in _blockedUserAgents)
             {
@@ -223,8 +223,8 @@ namespace SitecoreFundamentals.ExludeRobotsByAgent.Pipelines.ExcludeRobots
             message.Subject = subject;
 
             message.Body = $"{beginningOfEmail}{sb}{endOfEmail}"
-                .Replace("{LogDumpTimerStarted}", _hitsLoggingTimer.ToString(Settings.GetSetting("SitecoreFundamentals.ExludeRobotsByAgent.DateTimeFormat")))
-                .Replace("{SampleRecordsPerLogDump}", Settings.GetIntSetting("SitecoreFundamentals.ExludeRobotsByAgent.SampleRecordsPerLogDump", 200).ToString());
+                .Replace("{LogDumpTimerStarted}", _hitsLoggingTimer.ToString(Settings.GetSetting("SitecoreFundamentals.ExcludeRobotsByAgent.DateTimeFormat")))
+                .Replace("{SampleRecordsPerLogDump}", Settings.GetIntSetting("SitecoreFundamentals.ExcludeRobotsByAgent.SampleRecordsPerLogDump", 200).ToString());
 
             message.IsBodyHtml = true;
 
