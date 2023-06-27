@@ -64,6 +64,7 @@ namespace SitecoreFundamentals.ExcludeRobotsByAgent.Pipelines.ExcludeRobots
             CheckBlockedUserAgentList();
 
             var exclusionValues = exclusionValuesSetting.ToLower().Split(',').Select(x => x.Trim()).ToList();
+            var ignoreValues = Settings.GetSetting("SitecoreFundamentals.ExcludeRobotsByAgent.IgnoreValues").ToLower().Split(',').Select(x => x.Trim()).ToList();
 
             var context = HttpContext.Current;
 
@@ -72,6 +73,13 @@ namespace SitecoreFundamentals.ExcludeRobotsByAgent.Pipelines.ExcludeRobots
 
             var userAgent = context.Request.UserAgent.ToLower();
             var ip = GetIP(context);
+
+            var ignoreValue = ignoreValues.FirstOrDefault(x => userAgent.Contains(x) && !string.IsNullOrWhiteSpace(x));
+            if (ignoreValue != null)
+            {
+                Log.Debug($"{LogPrefix} User Agent contains the ignore value and will exit: {ignoreValue.Trim()}", this);
+                return;
+            }
 
             var exclusionValue = exclusionValues.FirstOrDefault(x => userAgent.Contains(x));
             if (exclusionValue != null)
